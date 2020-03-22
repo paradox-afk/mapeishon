@@ -16,7 +16,7 @@ export default {
     { 
         emitir()
         {
-            this.$emit("emitiro",this.index);
+            this.$emit("emitir",this.index);
         }
     }
 }
