@@ -23,5 +23,7 @@ export default {
         border-radius: 3px;
         background:white;
         background-color: rgba(255, 255, 255, 0.7);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 </style>

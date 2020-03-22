@@ -26,6 +26,7 @@ export default {
     updated()
     {
         
+        
         mapboxgl.accessToken = 'pk.eyJ1IjoibWVtb2xva29raiIsImEiOiJjazdlMmZiaTYwMWRpM2VvYmhrbXY2Z2dtIn0.uJZ46zgJDWrwzRkNCIRlnA';
         this.map = new mapboxgl.Map(
         {
@@ -34,24 +35,24 @@ export default {
         });
 
         
-            var popup = new mapboxgl.Popup({ offset: 25}).setHTML("<h2 style='text-align: center;'>"+this.name+"</h2>"+"<p style='text-align: center;'>"+this.descrip+"</p>"+"<img src='"+this.imagen+"' style='width: 220px; height: 100px'>");
-            
-            var marcador = new mapboxgl.Marker();
-            marcador.setLngLat([this.longitud, this.latitud]);
-            marcador.addTo(this.map);
-            this.map.flyTo(
+        var popup = new mapboxgl.Popup({ offset: 25}).setHTML("<h2 style='text-align: center;'>"+this.name+"</h2>"+"<p style='text-align: center;'>"+this.descrip+"</p>"+"<img src='"+this.imagen+"' style='width: 220px; height: 100px'>");
+        
+        var marcador = new mapboxgl.Marker();
+        marcador.setLngLat([this.longitud, this.latitud]);
+        marcador.addTo(this.map);
+        this.map.flyTo(
+        {
+            center: [this.longitud,this.latitud],
+            zoom: 15,
+            curve: 1,
+            speed: 3,
+            easing(t) 
             {
-                center: [this.longitud,this.latitud],
-                zoom: 15,
-                curve: 1,
-                speed: 3,
-                easing(t) 
-                {
-                    return t;
-                }
-            });
+                return t;
+            }
+        });
 
-            marcador.setPopup(popup);
+        marcador.setPopup(popup);
         
     }    
 }

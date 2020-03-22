@@ -18,26 +18,45 @@ export default {
     },
     data(){
         return {
-            busqueda:""
+            busqueda:"",
+            vacio:[],
         }
     },
     methods:{
         ...mapMutations(["setResultadosMapa"]),
-        buscar(){
-            if(this.busqueda!=""){
-            axios.get("http://localhost:3000/busqueda", {
-                params: {
-                    search: this.busqueda
-                }
-            } ).then(response => {
-                this.$emit("emitir",response.data);
-                this.setResultadosMapa(response.data)
-            }).catch(error => console.log(error));
-        }
+        buscar()
+        {
+            if(this.busqueda!="")
+            {
+                axios.get("http://localhost:3000/busqueda", {
+                    params: {
+                        search: this.busqueda
+                    }
+                } ).then(response => {
+                    if(response.data.data.length!=0)
+                        this.$emit("emitir",response.data);
+                    else
+                    {
+                        this.$emit("emitir",this.vacio);
+                        alert("No se encontraron resultados");
+                    }
+                    this.setResultadosMapa(response.data)
+                }).catch(error => {
+                    console.log(error);
+                    this.$emit("emitir",this.vacio);
+                    alert("No se encontraron resultados");
+                    });
+            }
+            else
+            {
+                this.$emit("emitir",this.vacio);
+                alert("No se encontraron resultados");
+            }
         }
     }
 }
 </script>
+
 <style>
 
 </style>
